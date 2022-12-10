@@ -27,5 +27,34 @@ def genNewfile(header:list[str], mmCompanies:set, v8Companies:dict):
         filewriter = csv.writer(filewriter)
         filewriter.writerows(v8Companies.values())
 
-print(readV8())
-genNewfile(getOutputHeader(), readMm(), readV8())
+
+def getData():
+    filename="data.csv"
+    rowsList21={}
+    with open(filename, newline='') as datareader:
+        datareader=csv.reader(datareader)
+        stat=False
+        for row in datareader:
+            temp=[]
+            if row[0]=="#":
+                stat=True
+                continue
+            elif stat is False:
+                continue
+            if stat is True:
+                index=len(row)-3
+                key=row[1].lower()
+                if rowsList21 is None:
+                    
+                    temp.append(row[1].lower())
+                    temp.append(row[27].lower())
+                    temp.append(row[28].lower())
+                    
+                    for i in temp:
+                        if i.lower() in rowsList21:
+                            rowsList21[i]=float(rowsList21.get(key))+float(row[index])
+                            continue
+                
+                rowsList21[key]=float(row[index])
+        print(rowsList21)
+getData()
